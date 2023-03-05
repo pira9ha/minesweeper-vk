@@ -6,7 +6,7 @@ import {StateContext} from "../context/StateContext/StateContext";
 const PlayButton = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const {state, dispatch} = useContext(StateContext);
-  const {bombsCount, gameIsOver} = state;
+  const {status, gameIsOver} = state;
 
   useEffect(() => {
     const eventHandler = (event) => {
@@ -27,8 +27,8 @@ const PlayButton = () => {
     <div
       className={classNames('default', {
         'click': isMouseDown,
-        'win': bombsCount === 0 && gameIsOver,
-        'loose': bombsCount > 0 && gameIsOver,
+        'win': status === 'win' && gameIsOver,
+        'loose': status === 'loose' && gameIsOver,
       })}
       onClick={() => dispatch({type: 'SET_NEW_GAME'})}
     />

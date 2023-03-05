@@ -58,7 +58,10 @@ const Plate = (props) => {
     }
     if (checkBomb(platePosition)) {
       setIsFindBomb(-1);
-      dispatch({type: 'SET_GAME_OVER'});
+      dispatch({
+        type: 'SET_GAME_OVER',
+        payload: 'loose',
+      });
       return;
     }
     setIsOpen(true);

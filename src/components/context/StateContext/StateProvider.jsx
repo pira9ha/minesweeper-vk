@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import {StateContext} from "./StateContext";
 import {BOMBS} from "../../../constants";
 import {createPlates, getNeighbours, openEmptyNeighbors} from "../../game";
@@ -10,6 +10,7 @@ const defaultState = {
   flags: [],
   gameIsOver: false,
   plates: createPlates(),
+  status: '',
 };
 
 function reducer(state, action) {
@@ -31,6 +32,7 @@ function reducer(state, action) {
         flags: [],
         gameIsOver: false,
         plates: createPlates(),
+        status: '',
       };
     }
     case 'ADD_FLAG': {
@@ -55,6 +57,7 @@ function reducer(state, action) {
       return {
         ...state,
         gameIsOver: true,
+        status: action.payload,
       };
     }
     case 'SET_PLATES': {
@@ -67,8 +70,8 @@ function reducer(state, action) {
     }
     case 'SET_OPEN_PLATE': {
       const { payload } = action;
-      let openedPlate = state.plates.find((_, i) => i === action.payload.x);
-      openedPlate = openedPlate.find((plate) => plate.y === action.payload.y);
+      let openedPlate = state.plates.find((_, i) => i === payload.x);
+      openedPlate = openedPlate.find((plate) => plate.y === payload.y);
       openedPlate.opened = true;
       return {
         ...state,
@@ -99,7 +102,6 @@ function reducer(state, action) {
       return {...state};
     }
   }
-  throw Error('Unknown action: ' + action.type);
 }
 
 const StateProvider = ({children}) => {

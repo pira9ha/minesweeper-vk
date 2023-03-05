@@ -18,7 +18,8 @@ const Field = () => {
       bombsPositions.length > 0
     ) {
       dispatch({
-        type: 'SET_GAME_OVER'
+        type: 'SET_GAME_OVER',
+        payload: 'win',
       });
     }
   }, [bombsCount])
