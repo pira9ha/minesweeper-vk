@@ -7,27 +7,26 @@ const Plate = (props) => {
   const {
     platePosition,
     checkBomb,
-    error,
     neighbors,
     item,
   } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isFindBomb, setIsFindBomb] = useState(0);
   const {state, dispatch} = useContext(StateContext);
-  const {plates, gameIsStart, bombsPositions, bombsCount, gameIsOver, flags} = state;
+  const {plates, gameIsStart, bombsPositions, bombsCount, gameIsOver} = state;
 
   useEffect(() => {
     setIsOpen(item.opened);
   }, [plates]);
 
   useEffect(() => {
-    if (isFindBomb !== 0) {
+    if (isFindBomb !== 0 && isFindBomb > 0) {
       dispatch({
         type: 'SET_BOMBS_COUNT',
         bombsCount: isFindBomb === 1
           ? bombsCount - 1
           : bombsCount + 1
-      })
+      });
       dispatch({
         type: isFindBomb === 1 ? 'ADD_FLAG' : 'REMOVE_FLAG',
         payload: platePosition,
@@ -51,6 +50,7 @@ const Plate = (props) => {
       return;
     }
     setIsOpen(true);
+    dispatch({type: 'SET_OPEN_PLATE', payload: item});
     if(bombsPositions.length > 0 && item.neighbour === 0) {
       dispatch({type: 'SET_PLATES', payload: item});
     }
@@ -71,9 +71,10 @@ const Plate = (props) => {
     <button
       onClick={handleClick}
       onContextMenu={handleRightClick}
+      data-index={platePosition}
       className={classNames('plate', {
         'bomb': gameIsOver && checkBomb(platePosition),
-        'error': isFindBomb === -1 || error,
+        'error': isFindBomb === -1 && checkBomb(platePosition) && gameIsOver,
         'catch': gameIsOver && isFindBomb === 1 && checkBomb(platePosition),
         'open': isOpen,
         [`neighbors-${neighbors}`]: isOpen && neighbors,

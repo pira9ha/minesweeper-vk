@@ -64,6 +64,16 @@ function reducer(state, action) {
         plates: [...newPlates],
       };
     }
+    case 'SET_OPEN_PLATE': {
+      const { payload } = action;
+      let openedPlate = state.plates.find((_, i) => i === action.payload.x);
+      openedPlate = openedPlate.find((plate) => plate.y === action.payload.y);
+      openedPlate.opened = true;
+      return {
+        ...state,
+        plates: [...state.plates],
+      };
+    }
     default: {
       return {...state};
     }
@@ -73,11 +83,6 @@ function reducer(state, action) {
 
 const StateProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
-
-  // const handleState = useCallback((newState) => setState({
-  //   ...state,
-  //   ...newState,
-  // }), [bombsCount]);
 
   return (
     <StateContext.Provider value={{state, dispatch}}>
