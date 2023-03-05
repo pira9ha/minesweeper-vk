@@ -7,30 +7,26 @@ const Timer = () => {
   const {state} = useContext(StateContext);
   const {gameIsOver, gameIsStart} = state;
   const [timeLeft, setTimeLeft] = useState(0);
-  const [timerStart, setTimerStart] = useState();
   const [intervalId, setIntervalId] = useState(0);
 
-  const tick = () => setTimeLeft((prev) => prev + 1);
-
   useEffect(() => {
-    if (gameIsStart && !timerStart) {
+    if (gameIsStart && timeLeft < 999 && !gameIsOver) {
       const interval = setInterval(() => {
-        if (timeLeft > 999) {
-          clearInterval(interval);
-        } else {
-          tick();
-        }
+        const newTime = timeLeft + 1;
+        setTimeLeft(newTime);
       }, 1000);
       setIntervalId(interval);
-      setTimerStart(new Date().getMinutes());
-      console.log(timerStart)
+    }
+
+    if (!gameIsStart) {
+      setTimeLeft(0);
     }
 
     const cleanup = () => {
       clearInterval(intervalId);
     };
     return cleanup;
-  }, [gameIsOver, timeLeft, timerStart, gameIsStart]);
+  }, [timeLeft, gameIsStart, gameIsOver]);
 
   return (
     <div className={'counters'}>
