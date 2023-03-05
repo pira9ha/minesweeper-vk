@@ -1,0 +1,45 @@
+.bombs-counter {
+  width: 78px;
+  height: 46px;
+  display: flex;
+}
+
+.number-0 {
+  background-image: url("./assets/0.png");
+}
+
+.number-1 {
+  background-image: url("./assets/1.png");
+}
+
+.number-2 {
+  background-image: url("./assets/2.png");
+}
+
+.number-3 {
+  background-image: url("./assets/3.png");
+}
+
+.number-4 {
+  background-image: url("./assets/4.png");
+}
+
+.number-5 {
+  background-image: url("./assets/5.png");
+}
+
+.number-6 {
+  background-image: url("./assets/6.png");
+}
+
+.number-7 {
+  background-image: url("./assets/7.png");
+}
+
+.number-8 {
+  background-image: url("./assets/8.png");
+}
+
+.number-9 {
+  background-image: url("./assets/9.png");
+}

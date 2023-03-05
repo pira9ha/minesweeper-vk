@@ -1,0 +1,70 @@
+.plate {
+  outline: none;
+  border: 0;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  background: url("./assets/default.png");
+  background-size: cover;
+  cursor: pointer;
+}
+
+.open {
+  background-image: url("./assets/empty.png");
+}
+
+.flag {
+  background-image: url("./assets/flag.png");
+}
+
+.mark {
+  background-image: url("./assets/mark.png");
+}
+
+.neighbors-1 {
+  background-image: url("./assets/one.png");
+}
+
+.neighbors-2 {
+  background-image: url("./assets/two.png");
+}
+
+.neighbors-3 {
+  background-image: url("./assets/three.png");
+}
+
+.neighbors-4 {
+  background-image: url("./assets/four.png");
+}
+
+.neighbors-5 {
+  background-image: url("./assets/five.png");
+}
+
+.neighbors-6 {
+  background-image: url("./assets/six.png");
+}
+
+.neighbors-7 {
+  background-image: url("./assets/seven.png");
+}
+
+.bomb {
+  background-image: url("./assets/bomb.png");
+}
+
+.error {
+  background-image: url("./assets/bomb-active.png");
+}
+
+.catch {
+  background-image: url("./assets/bomb-catch.png");
+}
+
+.mark:active {
+  background-image: url("./assets/mark-active.png");
+}
+
+.plate:not(:disabled):active {
+  background-image: url("./assets/empty.png");
+}

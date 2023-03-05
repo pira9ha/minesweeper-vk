@@ -1,0 +1,23 @@
+.default {
+  width: 52px;
+  height: 52px;
+  background: url("./assets/default.png");
+  background-size: cover;
+  cursor: pointer;
+}
+
+.default:active {
+  background-image: url("./assets/default-active.png");
+}
+
+.win {
+  background-image: url("./assets/win.png");
+}
+
+.loose {
+  background-image: url("./assets/lose.png");
+}
+
+.click {
+  background-image: url("./assets/surprised.png");
+}

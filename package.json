@@ -36,6 +36,8 @@
     ]
   },
   "devDependencies": {
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "lodash.difference": "^4.5.0",
+    "lodash.range": "^3.2.0"
   }
 }

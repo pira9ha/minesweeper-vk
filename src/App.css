@@ -25,6 +25,9 @@
 .top-table {
   width: 520px;
   height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .game-field {
@@ -33,4 +36,18 @@
   margin-top: 16px;
   width: 512px;
   height: 512px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.counters {
+  width: 78px;
+  height: 46px;
+  display: flex;
+}
+
+.point {
+  width: 26px;
+  height: 46px;
+  background-size: cover;
 }
