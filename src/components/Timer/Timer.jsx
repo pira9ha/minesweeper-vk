@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import './Timer.css';
 import classNames from "classnames";
 import {StateContext} from "../context/StateContext/StateContext";
 

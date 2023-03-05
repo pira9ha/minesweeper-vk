@@ -28,6 +28,7 @@ function reducer(state, action) {
         gameIsStart: false,
         bombsCount: BOMBS,
         bombsPositions: [],
+        flags: [],
         gameIsOver: false,
         plates: createPlates(),
       };
@@ -69,6 +70,26 @@ function reducer(state, action) {
       let openedPlate = state.plates.find((_, i) => i === action.payload.x);
       openedPlate = openedPlate.find((plate) => plate.y === action.payload.y);
       openedPlate.opened = true;
+      return {
+        ...state,
+        plates: [...state.plates],
+      };
+    }
+    case 'SET_FLAG_PLATE': {
+      const { payload } = action;
+      let openedPlate = state.plates.find((_, i) => i === payload.x);
+      openedPlate = openedPlate.find((plate) => plate.y === payload.y);
+      openedPlate.flag = true;
+      return {
+        ...state,
+        plates: [...state.plates],
+      };
+    }
+    case 'REMOVE_FLAG_PLATE': {
+      const { payload } = action;
+      let openedPlate = state.plates.find((_, i) => i === payload.x);
+      openedPlate = openedPlate.find((plate) => plate.y === payload.y);
+      openedPlate.flag = false;
       return {
         ...state,
         plates: [...state.plates],

@@ -20,17 +20,29 @@ const Plate = (props) => {
   }, [plates]);
 
   useEffect(() => {
-    if (isFindBomb !== 0 && isFindBomb > 0) {
-      dispatch({
-        type: 'SET_BOMBS_COUNT',
-        bombsCount: isFindBomb === 1
-          ? bombsCount - 1
-          : bombsCount + 1
-      });
+    if (!gameIsOver) {
+      setIsFindBomb(0);
+    }
+  }, [gameIsOver]);
+
+  useEffect(() => {
+    if (isFindBomb !== 0 && isFindBomb !== -1) {
+     dispatch({
+       type: 'SET_BOMBS_COUNT',
+       bombsCount: isFindBomb === 1
+         ? bombsCount - 1
+         : bombsCount + 1
+     });
       dispatch({
         type: isFindBomb === 1 ? 'ADD_FLAG' : 'REMOVE_FLAG',
         payload: platePosition,
       });
+    }
+  }, [isFindBomb]);
+
+  useEffect(() => {
+    if (isFindBomb === 0) {
+      dispatch({type: 'REMOVE_FLAG_PLATE', payload: item});
     }
   }, [isFindBomb]);
 
@@ -40,8 +52,8 @@ const Plate = (props) => {
     }
   }, [isOpen]);
 
-  const handleClick = useCallback(() => {
-    if (isFindBomb === 1) {
+  const handleClick = useCallback((event) => {
+    if (event.type === 'contextmenu') {
       return;
     }
     if (checkBomb(platePosition)) {
@@ -58,7 +70,11 @@ const Plate = (props) => {
 
   const handleRightClick = useCallback((event) => {
     event.preventDefault();
+    if (isOpen) {
+      return;
+    }
     setFlagOnBomb();
+    dispatch({type: 'SET_FLAG_PLATE', payload: item});
   }, [gameIsStart]);
 
   const setFlagOnBomb = useCallback(() => {
@@ -70,7 +86,7 @@ const Plate = (props) => {
   return (
     <button
       onClick={handleClick}
-      onContextMenu={handleRightClick}
+      onContextMenu={gameIsOver ? () => {} : handleRightClick}
       data-index={platePosition}
       className={classNames('plate', {
         'bomb': gameIsOver && checkBomb(platePosition),
@@ -78,10 +94,10 @@ const Plate = (props) => {
         'catch': gameIsOver && isFindBomb === 1 && checkBomb(platePosition),
         'open': isOpen,
         [`neighbors-${neighbors}`]: isOpen && neighbors,
-        'flag': isFindBomb === 1,
+        'flag': isFindBomb === 1 && item.flag,
         'mark': isFindBomb === 2 && !isOpen,
       })}
-      disabled={isOpen || gameIsOver || isFindBomb === 1}
+      disabled={isOpen || gameIsOver || item.flag || isFindBomb !== 0}
     />
   );
 };

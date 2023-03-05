@@ -11,7 +11,12 @@ const Field = () => {
 
   useEffect(() => {
     const isWin = lodash.difference(flags, bombsPositions);
-    if (isWin.length === 0 && bombsPositions.length > 0) {
+    if (
+      flags.length > 0 &&
+      isWin.length === 0 &&
+      bombsCount === 0 &&
+      bombsPositions.length > 0
+    ) {
       dispatch({
         type: 'SET_GAME_OVER'
       });

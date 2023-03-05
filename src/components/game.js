@@ -8,12 +8,12 @@ export const createBombs = (clickedIndex) => {
 };
 
 export const createPlates = () => {
-  let data = [];
+  let plates = [];
 
   for (let i = 0; i < HEIGHT; i++) {
-    data.push([]);
+    plates.push([]);
     for (let j = 0; j < WIDTH; j++) {
-      data[i][j] = {
+      plates[i][j] = {
         x: i,
         y: j,
         neighbour: 0,
@@ -21,66 +21,66 @@ export const createPlates = () => {
       };
     }
   }
-  return data;
+  return plates;
 };
 
-export const getNeighbours = (data, bombsPosition) => {
+export const getNeighbours = (plates, bombsPosition) => {
   const checkBomb = (index) => bombsPosition.includes(index);
-  let updatedData = data;
+  let updatedplates = plates;
 
   for (let i = 0; i < HEIGHT; i++) {
     for (let j = 0; j < WIDTH; j++) {
       const index = i * WIDTH + j;
       if (!checkBomb(index)) {
         let mine = 0;
-        const area = traverseBoard(data[i][j].x, data[i][j].y, data);
+        const area = traverseBoard(plates[i][j].x, plates[i][j].y, plates);
         area.forEach((value) => {
           const index = value.x * WIDTH + value.y;
           if (checkBomb(index)) {
             mine++;
           }
         });
-        updatedData[i][j].neighbour = mine;
+        updatedplates[i][j].neighbour = mine;
       }
     }
   }
 
-  return updatedData;
+  return updatedplates;
 };
 
-export const traverseBoard = (x, y, data) => {
+export const traverseBoard = (x, y, plates) => {
   const neighbors = [];
 
   if (x > 0) {
-    neighbors.push(data[x - 1][y]);
+    neighbors.push(plates[x - 1][y]);
   }
 
   if (x < HEIGHT - 1) {
-    neighbors.push(data[x + 1][y]);
+    neighbors.push(plates[x + 1][y]);
   }
 
   if (y > 0) {
-    neighbors.push(data[x][y - 1]);
+    neighbors.push(plates[x][y - 1]);
   }
 
   if (y < WIDTH - 1) {
-    neighbors.push(data[x][y + 1]);
+    neighbors.push(plates[x][y + 1]);
   }
 
   if (x > 0 && y > 0) {
-    neighbors.push(data[x - 1][y - 1]);
+    neighbors.push(plates[x - 1][y - 1]);
   }
 
   if (x > 0 && y < WIDTH - 1) {
-    neighbors.push(data[x - 1][y + 1]);
+    neighbors.push(plates[x - 1][y + 1]);
   }
 
   if (x < HEIGHT - 1 && y < WIDTH - 1) {
-    neighbors.push(data[x + 1][y + 1]);
+    neighbors.push(plates[x + 1][y + 1]);
   }
 
   if (x < HEIGHT - 1 && y > 0) {
-    neighbors.push(data[x + 1][y - 1]);
+    neighbors.push(plates[x + 1][y - 1]);
   }
 
   return neighbors;
@@ -88,7 +88,6 @@ export const traverseBoard = (x, y, data) => {
 
 export const openEmptyNeighbors = (item, neighbors, bombsPositions) => {
   const checkBomb = (index) => bombsPositions.includes(index);
-  const itemIndex = item.x * WIDTH + item.y;
 
   let area = traverseBoard(item.x, item.y, neighbors);
   area.forEach(value => {

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import './BombsCounter.css';
 import classNames from "classnames";
 import {StateContext} from "../context/StateContext/StateContext";
